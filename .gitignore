@@ -1,0 +1,7 @@
+.coverage
+.DS_STORE
+.idea
+.env
+*.pyc
+config.py
+celerybeat-schedule
