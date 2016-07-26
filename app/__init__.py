@@ -24,7 +24,7 @@ def create_app(config_name):
             'file': log_folder_path + 'default.log'
         }
 
-        file_handler = logging.FileHandler(logfile['file'])
+        file_handler = logging.FileHandler(log_file['file'])
         file_handler.setLevel(logging.INFO)
 
         formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
