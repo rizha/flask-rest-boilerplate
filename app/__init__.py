@@ -1,7 +1,7 @@
 import logging
 
 from flask import Flask
-from extension import mongo, cache, celery
+from extensions import mongo, cache, celery
 from config import config
 
 
