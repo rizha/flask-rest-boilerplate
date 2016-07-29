@@ -1,8 +1,7 @@
 import os
 
 import flask
-from flask.ext.pymongo import PyMongo
-from flask.ext.cache import Cache
+from flask_pymongo import PyMongo
 from celery import Celery
 
 from config import config
@@ -37,7 +36,7 @@ class FlaskCelery(Celery):
         self.app = app
         self.config_from_object(app.config)
 
+
 celery = FlaskCelery('tasks', broker=config[os.getenv(
     'FLASK_CONFIG') or 'local'].CELERY_BROKER_URL)
 mongo = PyMongo()
-cache = Cache()
