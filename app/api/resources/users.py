@@ -1,7 +1,6 @@
-from flask.ext.restful import Resource, reqparse, marshal, fields
+from flask_restful import Resource, reqparse
 
 from app.users import User
-from app import mongo
 
 
 class Auth(Resource):
@@ -39,24 +38,20 @@ class UserList(Resource):
         if not user['status']:
             return user['data'], 409
 
-        return None, 201
+        return {'message': 'success'}, 201
+
+    def get(self):
+        users = User.get_all_user()
+
+        return users, 200
 
 
 class UserDetail(Resource):
 
     def get(self, username):
-        resource_field = {
-            'username': fields.String,
-            'email': fields.String,
-            'fullName': fields.String,
-            'phone': fields.String,
-            'gender': fields.String,
-            'dateUpdated': fields.DateTime(dt_format='iso8601'),
-            'dateCreated': fields.DateTime(dt_format='iso8601')
-        }
 
-        user = mongo.db.users.find_one({'username': username}, {'_id': 0})
+        user = User.get_user(username)
 
-        output = marshal(user, resource_field)
-
-        return {'res': output}
+        if not user:
+            return user['data'], 404
+        return user['data'], 200
